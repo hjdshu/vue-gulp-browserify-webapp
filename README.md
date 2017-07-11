@@ -1,6 +1,5 @@
-# A Vue + vue-router webapp
+# vue + vue-router webapp
 
-# install
 
 ## dev
 
