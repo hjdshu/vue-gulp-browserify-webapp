@@ -1,8 +1,8 @@
-#A Vue + vue-router webapp
+# A Vue + vue-router webapp
 
-#install
+# install
 
-##dev
+## dev
 
 ```
 npm install
@@ -10,7 +10,7 @@ gulp
 
 ```
 
-##build
+## build
 
 ```
 gulp build
