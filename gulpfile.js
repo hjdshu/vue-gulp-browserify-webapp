@@ -7,9 +7,12 @@ var babelify = require("babelify");
 var watchify = require('watchify');
 var hmr = require('browserify-hmr');
 var browserSync = require('browser-sync');
+var reload = browserSync.reload;
 var assign = require('lodash.assign');
 var uglify = require('gulp-uglify');
 var env = require('gulp-env');
+var fs = require('fs');
+
 
 // 在这里添加自定义 browserify 选项
 var customOpts = {
@@ -34,6 +37,34 @@ function bundle() {
 }
 
 gulp.task('devTransJs', bundle);
+
+
+gulp.task('trans_imgs',function(){
+  var fileList = [];
+  function walk(path){
+    var dirList = fs.readdirSync(path);
+    dirList.forEach(function(item){
+      if(fs.statSync(path + '/' + item).isDirectory()){
+        walk(path + '/' + item);
+      }else{
+        if(item == '.DS_Store') return;
+        fileList.push('./static/images/'+item);
+      }
+    });
+  }
+  walk('src/static/images');
+
+  var arrayString = '['
+  fileList.forEach(function(item){
+    arrayString += '"'+item+'",'
+  })
+  arrayString += ']'
+  var content = 'var imgs = ' + arrayString +';' + '\r\nexport default imgs;'
+  fs.writeFileSync('src/static/js/img.js', content, 'utf-8');
+  return;
+})
+
+
 
 gulp.task('destHtml',function () {
   return gulp.src('./src/index.html')
@@ -60,6 +91,13 @@ gulp.task('default',['destStatic','destHtml','devTransJs'],function () {
       startPath:'index.html'
     }
   })
+
+
+  gulp.watch('src/static/images/*', ['destStatic','trans_imgs']).on('change',function(){
+    setTimeout(function(){reload()},100)
+  });
+
+
 })
 
 
