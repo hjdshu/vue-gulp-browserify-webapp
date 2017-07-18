@@ -1,6 +1,8 @@
 <template>
-  <div class="act">
-    <div class="">规则啊{{msg}}</div>
+  <div class="act page-main">
+    <div class="container">
+      <div class="">ACT RULE PAGE: {{msg}}</div>
+    </div>
   </div>
 </template>
 
@@ -12,7 +14,7 @@
     },
     data:function () {
       return {
-        msg:'规则是这样吗？'
+        msg:'a act rule page？'
       }
     }
   }

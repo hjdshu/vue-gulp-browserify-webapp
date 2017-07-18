@@ -1,6 +1,8 @@
 <template>
   <div class="app">
-    <router-view></router-view>
+    <transition name="slide-fade" model="out-in">
+      <router-view></router-view>
+    </transition>
     <Tips v-show="false"></Tips>
   </div>
 </template>
@@ -21,16 +23,36 @@
   }
 </script>
 
+<style rel="stylesheet/less" lang="less">
+  @import "./static/css/base.less";
+</style>
+
+
 <style scoped rel="stylesheet/less" lang="less">
 .app{
-  a{
-    color: red;
+
+  font-size: 40px;
+
+  /* 可以设置不同的进入和离开动画 */
+  /* 设置持续时间和动画函数 */
+  .slide-fade-enter-active {
+    transition: all 0.5s ease 0.2s;
+    transform: translateX(0);
+    opacity: 1;
   }
-  b{
-    color: red;
-    i{
-      color:green;
-    }
+  .slide-fade-leave-active {
+    transition: all 0.5s ease;
+    transform: translateY(70px);
+    opacity: 0;
   }
+
+  .slide-fade-enter{
+    transform: translateX(-70px);
+    opacity: 0;
+  }
+  .slide-fade-leave{
+    transform: translateY(0);
+  }
+
 }
 </style>

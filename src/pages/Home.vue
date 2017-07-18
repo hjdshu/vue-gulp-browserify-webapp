@@ -1,8 +1,12 @@
 <template>
-  <div class="home">
-    <img src="./static/images/test.jpeg" alt="">
-    <a href="">{{msg}}</a>
-    <b>粗体 <i>斜体11</i></b>
+  <div class="page-main home">
+    <div class="container">
+      <div class="">A Vue webapp: {{msg}}</div>
+
+      <div  class="turn" @click="go_act()" href="">go ACT page</div>
+
+      <img class="ex" src="./static/images/test.jpeg" alt="">
+    </div>
   </div>
 </template>
 
@@ -13,18 +17,28 @@
 
     components:{
     },
-    data:function () {
+    data() {
       return {
-        msg:123456881
+        msg:'no use webpack, just gulp+browserify'
       }
+    },
+    methods:{
+      go_act(){
+        this.$router.push({name:'Act'})
+      },
     }
   }
 </script>
 
 <style scoped rel="stylesheet/less" lang="less">
   .home {
-    a {
-      color: red;
+
+    .turn{
+      color: blue;
+      margin: 40px auto;
+    }
+    .ex{
+      width: 250px;
     }
   }
 </style>
