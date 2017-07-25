@@ -15,28 +15,64 @@ var fs = require('fs');
 
 
 // 在这里添加自定义 browserify 选项
-var customOpts = {
-  entries: ['./src/app.js'],
-  debug: true,
-  plugin:[hmr]
-};
-var opts = assign({}, watchify.args, customOpts);
-var b = watchify(browserify(opts));
-b.transform(vueify);
-b.transform("babelify", {presets: ["es2015"]})
+// var customOpts = {
+//   entries: ['./src/main.js'],
+//   debug: true,
+//   plugin:[hmr]
+// };
+// var opts = assign({}, watchify.args, customOpts);
+// var b = watchify(browserify(opts));
+// b.transform(vueify);
+// b.transform("babelify", {presets: ["es2015"]})
+//
+// b.on('update', bundle); // 当任何依赖发生改变的时候，运行打包工具
+//
+// function bundle() {
+//   return b.bundle()
+//     .on('error', function (meesage) {
+//       console.log(meesage)
+//     })
+//     .pipe(source('main.js'))
+//     .pipe(gulp.dest('./tmp'));
+// }
+// gulp.task('devTransJs', bundle);
 
-b.on('update', bundle); // 当任何依赖发生改变的时候，运行打包工具
 
-function bundle() {
-  return b.bundle()
-    .on('error', function (meesage) {
-      console.log(meesage)
-    })
-    .pipe(source('app.js'))
-    .pipe(gulp.dest('./tmp'));
-}
+gulp.task('mulTransJs',function () {
+  var files = [
+    './src/main.js',
+  ];
+  files.map(function(entry,index) {
+      //在这里添加自定义 browserify 选项
+      var customOpts = {
+        entries: [entry],
+        debug: true,
+      };
 
-gulp.task('devTransJs', bundle);
+      if(index === 0){
+        customOpts.plugin = [hmr]
+      }
+
+      var opts = assign({}, watchify.args, customOpts)
+      var b = watchify(browserify(opts));
+      b.transform(vueify);
+      b.transform("babelify", {presets: ["es2015"]})
+
+      b.on('update', bundle); // 当任何依赖发生改变的时候，运行打包工具
+
+      function bundle() {
+        return b.bundle()
+          .on('error', function (meesage) {
+            console.log(meesage)
+          })
+          .pipe(source(entry.split('/')[2]))
+          .pipe(gulp.dest('./tmp'));
+      }
+      bundle()
+  });
+})
+
+
 
 
 gulp.task('trans_imgs',function(){
@@ -67,7 +103,7 @@ gulp.task('trans_imgs',function(){
 
 
 gulp.task('destHtml',function () {
-  return gulp.src('./src/index.html')
+  return gulp.src('./src/*.html')
     .pipe(gulp.dest('./tmp/'))
     .pipe(gulp.dest('./dist/'))
 })
@@ -78,7 +114,7 @@ gulp.task('destStatic',function () {
     .pipe(gulp.dest('./dist/static'))
 })
 
-gulp.task('default',['destStatic','destHtml','devTransJs'],function () {
+gulp.task('default',['destStatic','destHtml','mulTransJs'],function () {
 
   browserSync({
     port:8000,
@@ -111,14 +147,14 @@ gulp.task('build', ['destHtml'], function(){
     NODE_ENV: 'production'
   });
 
-  return browserify('./src/app.js')
+  return browserify('./src/main.js')
     .transform(vueify)
     .transform("babelify", {presets: ["es2015"]})
     .bundle().on('error', function(err){
       console.log(err.message);
       this.emit('end');
     })
-    .pipe(source('app.js'))
+    .pipe(source('main.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest('dist'));
 });

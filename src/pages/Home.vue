@@ -1,7 +1,7 @@
 <template>
   <div class="page-main home">
     <div class="container">
-      <div class="">A Vue webapp: {{msg}}</div>
+      <div class="">A Vue webapp : {{msg}}</div>
 
       <div  class="turn" @click="go_act()" href="">go ACT page</div>
 
@@ -19,7 +19,7 @@
     },
     data() {
       return {
-        msg:'no use webpack, just gulp+browserify'
+        msg:'no use webpack,just gulp+browserify!!'
       }
     },
     methods:{
@@ -38,7 +38,7 @@
       margin: 40px auto;
     }
     .ex{
-      width: 250px;
+      width: 350px;
     }
   }
 </style>
