@@ -25,17 +25,14 @@ vue-template-compiler 可能也会被安装成2.4.0 需要手动安装跟vue对�
 ```
 npm install vue@2.3.4
 npm install vue-template-compiler@2.3.4
-
 ```
 
 ## dev 开发
 
 ```
 npm install
-
 ```
 ```
-
 gulp 
 ```
 
@@ -47,5 +44,4 @@ host里需加上 127.0.0.1 localhost
 
 ```
 gulp build
-
 ```
