@@ -7,7 +7,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-
+  import $ from 'jquery'
+  console.log($)
   export default{
     name:'act',
     components:{

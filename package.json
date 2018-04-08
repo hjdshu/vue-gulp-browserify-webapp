@@ -19,6 +19,7 @@
     "gulp-env": "^0.4.0",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.0",
+    "jquery": "^3.3.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "lodash.assign": "^4.2.0",
