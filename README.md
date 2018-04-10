@@ -1,5 +1,5 @@
 # vue + vue-router webapp
-#### 作者发现vue对gulp的支持不是很好，这个架子仅适用于单页开发，如果有下面两个问题的朋友，建议使用vue的webpack打包方式
+#### 作者发现vue对gulp的支持不是很好，这个架子仅适用于单页开发，如果有下面两个问题的朋友，建议使用vue基于webpack的脚手架 https://github.com/hjdshu/vue-webpack-webapp 
 #### 问题1，如果有多个html，编译问题待解决
 #### 问题2，无法直接在开发目录引入外部的vue组件：node_modules里的vue组件
 
